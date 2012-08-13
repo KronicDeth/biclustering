@@ -1,0 +1,365 @@
+# sync
+rsync -avz --delete ~/Projects/Biclustering/ boeing.dtc.umn.edu:"~/Projects/Biclustering"
+# remote
+pyrexc BitSet.pyx && gcc -c -O2 -fPIC -I/usr/include/python2.4/ -I/usr/lib/python2.4/site-packages/numpy/core/include/ BitSet.c && gcc -O2 -shared BitSet.o -o BitSet.so
+
+# full5 set
+
+import Biclustering.GeneExpressionMatrix
+data = Biclustering.GeneExpressionMatrix.fullCoverageData(5)
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("full5", data, "~/")
+gem.allBiclusters()
+print gem.stats()
+
+# prune test
+
+import scipy
+data = scipy.array([0,1,2,3] * 5)
+data.shape = (5,4) 
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("prune", data, "~/")
+gem.widthBiclusters(2)
+print gem.stats()
+gem.mergeBiclusters(2)
+gem.mergeBiclusters(3)
+print gem.stats()
+print gem.biclusters
+
+# prune test - load
+
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("prune", None, "~/")
+print gem.stats()
+gem.pruneBiclusters(2)
+gem.pruneBiclusters(3)
+print gem.stats()
+print gem.biclusters
+
+# prune all test
+
+import scipy
+data = scipy.array([0,1,2,3] * 5)
+data.shape = (5,4) 
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("prune-all", data, "~/")
+gem.allBiclusters()
+print gem.stats()
+
+# -- load subtest
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("prune-all", None, "~/")
+print gem.data
+print gem.stats()
+
+# pack test
+
+import scipy
+data = scipy.random.random((5,4))
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("pack", data, "~/")
+gem.allBiclusters()
+print gem.stats()
+
+# sim set
+
+import scipy
+data = scipy.random.random((6206, 1101))
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim", data, "~/")
+gem.widthBiclusters(2)
+print gem.stats()
+
+# -- load subtest
+
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim", None, "~/")
+gem.mergeBiclusters(2) # (2 2) => (3): 4146564 / 1466763210000 38448 days, 5:01:34.576073 -- 4396 biclusters produced
+print gem.stats()
+
+# sim profile set
+
+import scipy
+data = scipy.random.random((6206, 100))
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-prof", data, "~/")
+import profile
+profile.run('gem.widthBiclusters(2)', 'sim-prof.prof')
+print gem.stats()
+
+# BitSet
+
+import Biclustering.BitSet
+b = Biclustering.BitSet.BitSet(31)
+print b
+print ~b
+
+# splitSubset Test
+
+import Biclustering.GeneExpressionMatrix
+data = Biclustering.GeneExpressionMatrix.fullCoverageData(2) + 1
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("splitSubset", data, "~/")
+import scipy
+gem.splitSubset(scipy.arange(2))
+print gem.biclusters
+
+# splitBiclusters Test
+
+import scipy
+data = scipy.array([0,1,2,3] * 5)
+data.shape = (5,4) 
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("splitBiclusters", data, "~/")
+gem.splitBiclusters()
+print gem.biclusters
+
+# sim split test
+
+import scipy
+data = scipy.random.random((6206, 1101))
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-split", data, "~/")
+gem.splitBiclusters() # Finding (2): 605550 Completed 1:11:42.938287
+
+# sim merge test
+
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-merge2", None, "~/")
+gem.mergeBiclusters(2)
+
+# chain test
+
+import scipy
+data = scipy.array([0,1,2,3] * 5)
+data.shape = (5,4) 
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("chain", data, "~/")
+gem.splitBiclusters()
+print gem.biclusters
+gem.chainBiclusters(2)
+print gem.biclusters
+gem.chainBiclusters(3)
+print gem.biclusters
+
+# chain all test
+import scipy
+data = scipy.array([0,1,2,3] * 5)
+data.shape = (5,4) 
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("chain-all", data, "~/")
+gem.allBiclusters()
+print gem.stats()
+print gem.biclusters
+
+# sim chain test
+
+import scipy
+data = scipy.random.random((6206, 1101))
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-chain", data, "~/")
+gem.splitBiclusters() # Splitting: 605550 Completed 1:07:08.256769
+
+# sim chain merge2
+
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-chain-merge2", None, "~/")
+gem.chainBiclusters(2) # 
+
+# sim chain merge2 profiling
+
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-chain-merge2", None, "~/")
+import profile
+profile.run('gem.chainBiclusters(2)', 'sim-chain-merge2.prof')
+import scipy
+data = scipy.array([0,1,2,3] * 5)GeneExpressionMatrix.FILTERS
+data.shape = (5,4) 
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("chain", data, "~/")
+gem.splitBiclusters()
+gem.chainBiclusters(2)
+print gem.biclusters
+gem.chainBiclusters(3)
+print gem.biclusters
+# sim seedLookUpTable test
+
+import scipy
+data = scipy.random.random((6206, 1101))
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-slut", data, "~/")
+gem.splitBiclusters()
+
+# -- load subtest
+
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-slut", None, "~/")
+GeneExpressionMatrix.FILTERS
+# sim heads/tails dual store test
+
+import scipy
+data = scipy.random.random((6206, 1101))
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-table", data, "~/")
+gem.splitBiclusters()
+
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-table", None, "~/")
+(heads, tails) = gem.biclusters.partition(2,0)
+
+# index test
+
+import scipy
+data = scipy.array([0,1,2,3] * 5)
+data.shape = (5,4) 
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("chain", data, "~/")
+gem.splitBiclusters()
+gem.indexBiclusters(2)
+gem.chainBiclusters(2)
+gem.indexBiclusters(3)
+gem.chainBiclusters(3)
+print gem.stats()
+gem.pruneBiclusters(2)
+gem.pruneBiclusters(3)
+print gem.stats()
+
+# sim index test
+
+import scipy
+data = scipy.random.random((6206, 1101))
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-index", data, "~/")
+gem.splitBiclusters()
+
+# -- load subtest
+
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-index", None, "~/")
+gem.indexBiclusters(2)
+
+# --
+
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-index", None, "~/")
+gem.chainBiclusters(2)
+
+# sim index profile test
+import scipy
+data = scipy.random.random((6206, 1101))
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-index", data, "~/")
+gem.splitBiclusters()
+gem.indexBiclusters(2)
+import profile
+profile.run('gem.chainBiclusters(2)', 'sim-index.prof')
+
+
+import numpy
+data = numpy.random.random((6206, 1101))
+import Biclustering.GeneExpressionMatrix//
+lzoGEM = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-index", data, "~/", complib = 'lzo')
+lzoGEM.splitBiclusters()
+
+import tables
+fileh = tables.openFile('../../data/yeastdataclean.h5')
+data = fileh.root.yeast[:]
+import numpy
+data = numpy.asarray(data)
+data = data.astype(numpy.uint32)
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("clean-yeast", data, "~/")
+gem.allBiclusters()
+
+import numpy
+data = numpy.random.random((6206, 1101))
+import Biclustering.GeneExpressionMatrix
+import tables
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("complib-none", data, "~/", filters = tables.Filters())
+gem.splitBiclusters()
+lzoGEM = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("complib-lzo", data, "~/")
+lzoGEM.splitBiclusters()
+
+# threading test
+import scipy
+data = scipy.array([0,1,2,3] * 5)
+data.shape = (5,4) 
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("thread2", data, "~/", threads = 2)
+gem.splitBiclusters()
+print gem.biclusters
+gem.indexBiclusters(2)
+
+
+# threading sim test
+import numpy
+data = numpy.random.random((6206, 1101))
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("sim-thread2", data, "~/", threads = 2)
+
+# table test
+import numpy
+data = numpy.random.random((6206, 1101))
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("table", data, "~/")
+gem.splitBiclusters()
+
+import numpy
+data = numpy.array([0,1,2,3,4] * 6)
+data.shape = (6,5) 
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("doubling", data, "~/")
+gem.splitBiclusters()
+print gem.biclusters
+gem.indexBiclusters(2)
+gem.chainBiclusters(2)
+print gem.biclusters
+gem.indexBiclusters(3)
+gem.chainBiclusters(3, doubling = True)
+
+# clean yeast
+import tables
+fileh = tables.openFile('../../data/yeastdataclean.h5')
+data = fileh.root.yeast[:]
+import numpy
+data = numpy.asarray(data)
+data = data.astype(numpy.uint32)
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("clean-yeast", data, "~/")
+gem.splitBiclusters()
+for i in xrange(4):
+    gem.indexBiclusters(i)
+    gem.chainBiclusters(i, doubling = True)
+
+for i in xrange(2, 4):
+    width = 2 ** i + 1
+    gem.indexBiclusters(width)
+    gem.chainBiclusters(width, doubling = True)
+
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("clean-yeast", None, "~/")
+gem.chainBiclusters(5, doubling = True)
+gem.indexBiclusters(9)
+gem.chainBiclusters(9, doubling = True)
+
+import numpy
+counts = numpy.zeros(gem.maxGenes)
+wg = gem.biclusters.cache[5]
+for geneSet in wg.genes:
+    counts[len(geneSet)] += 1
+
+total = 0
+for i in xrange(gem.maxConditions):
+    heads = len(gem.file.root.biclusters.width5.heads[i])
+    tails = len(gem.file.root.biclusters.width5.tails[i])
+    combos = heads * tails
+    total += combos
+    print i, heads, tails, combos
+print total
+
+import Biclustering.GeneExpressionMatrix
+gem = Biclustering.GeneExpressionMatrix.GeneExpressionMatrix("clean-yeast", None, "~/")
+w = gem.biclusters.cache[2]
+w.duplicateSearch()
+w = gem.biclusters.cache[3]
+w.duplicateSearch()
+w = gem.biclusters.cache[5]
+w.duplicateSearch()

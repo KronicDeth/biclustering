@@ -1,0 +1,42 @@
+function [Results]=significant(biores,TGenes_in_Patterng)
+[M,N]=size(TGenes_in_Patterng);
+Results=zeros(M,N);
+[L,X]=size(biores);
+i=1;
+while (i<=M);
+   j=1;
+   while (j<=N);
+      k=1;
+      while (k<=L);
+         if TGenes_in_Patterng(i,j)==0;
+            Results(i,j)=-1;
+            j=j+1;
+            %if j==N+1;
+             %  i=i+1;
+              % j=1;
+            %end;
+            break;
+         elseif TGenes_in_Patterng(i,j)==biores(k);
+            Results(i,j)=1;
+            j=j+1;
+            %if j==N+1;
+               %i=i+1;
+               %j=1;
+            %end;
+            break;
+         elseif TGenes_in_Patterng(i,j)>biores(k);
+            k=k+1;
+            if k==L+1;
+               j=j+1;
+               %break;
+            end;
+            
+         else TGenes_in_Patterng(i,j)<biores(k);
+            %Not part of significance results
+            j=j+1;
+            break;
+         end;
+      end;
+   end;
+   i=i+1;
+end;

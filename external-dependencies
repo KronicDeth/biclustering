@@ -1,0 +1,47 @@
+digraph g {
+rankdir="LR" URL="." concentrate=false
+edge[fontsize="10" ]
+node[width="0" height="0" fontsize="12" fontcolor="black"]
+"tables" [ label="tables" ];
+"Biclustering.Bit" [ label="Biclustering.Bit" ];
+"Biclustering.TableBicluster" [ label="Biclustering.TableBicluster" ];
+"Biclustering.GeneExpressionMatrix" [ label="Biclustering.GeneExpressionMatrix" ];
+"Biclustering.Bicluster" [ label="Biclustering.Bicluster" ];
+"Biclustering.Sizing" [ label="Biclustering.Sizing" ];
+"Biclustering.GroupBicluster" [ label="Biclustering.GroupBicluster" ];
+"Biclustering.SingleLevelIndexGroupBicluster" [ label="Biclustering.SingleLevelIndexGroupBicluster" ];
+"numpy.core.ma" [ label="numpy.core.ma" ];
+"scipy.misc" [ label="scipy.misc" ];
+"Biclustering.Combinatorics" [ label="Biclustering.Combinatorics" ];
+"numarray" [ label="numarray" ];
+"scipy" [ label="scipy" ];
+"Biclustering.Parallel" [ label="Biclustering.Parallel" ];
+"numpy.core.multiarray" [ label="numpy.core.multiarray" ];
+"Biclustering.Array" [ label="Biclustering.Array" ];
+"scipy.linalg.basic" [ label="scipy.linalg.basic" ];
+"numpy" [ label="numpy" ];
+"Biclustering.Bit" -> "tables" [ ] ;
+"Biclustering.TableBicluster" -> "tables" [ ] ;
+"Biclustering.GeneExpressionMatrix" -> "tables" [ ] ;
+"Biclustering.Bicluster" -> "tables" [ ] ;
+"Biclustering.Sizing" -> "tables" [ ] ;
+"Biclustering.GroupBicluster" -> "tables" [ ] ;
+"Biclustering.SingleLevelIndexGroupBicluster" -> "tables" [ ] ;
+"Biclustering.Bit" -> "numpy.core.ma" [ ] ;
+"Biclustering.Combinatorics" -> "scipy.misc" [ ] ;
+"Biclustering.TableBicluster" -> "numarray" [ ] ;
+"Biclustering.Bicluster" -> "numarray" [ ] ;
+"Biclustering.GroupBicluster" -> "numarray" [ ] ;
+"Biclustering.SingleLevelIndexGroupBicluster" -> "numarray" [ ] ;
+"Biclustering.Parallel" -> "scipy" [ ] ;
+"Biclustering.Combinatorics" -> "scipy" [ ] ;
+"Biclustering.Array" -> "numpy.core.multiarray" [ ] ;
+"Biclustering.Bit" -> "numpy.core.multiarray" [ ] ;
+"Biclustering.Parallel" -> "scipy.linalg.basic" [ ] ;
+"Biclustering.TableBicluster" -> "numpy" [ ] ;
+"Biclustering.GeneExpressionMatrix" -> "numpy" [ ] ;
+"Biclustering.Bicluster" -> "numpy" [ ] ;
+"Biclustering.Sizing" -> "numpy" [ ] ;
+"Biclustering.GroupBicluster" -> "numpy" [ ] ;
+"Biclustering.SingleLevelIndexGroupBicluster" -> "numpy" [ ] ;
+}

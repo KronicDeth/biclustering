@@ -1,0 +1,7 @@
+# directories
+build
+
+# extensions
+*.o
+*.pyc
+*.so

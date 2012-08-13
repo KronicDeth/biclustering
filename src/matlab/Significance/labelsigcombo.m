@@ -1,0 +1,17 @@
+A=BiogenSigUn;
+B=CellComSigUn;
+C=CellCycleSigUn;
+D=CellEnvSigUn;
+E=CellRescueSigUn;
+F=CellTransSigUn;
+G=CellTypeSigUn;
+H=EnergySigUn;
+I=MetabolismSigUn;
+J=ProteinActSigUn;
+K=ProteinBindSigUn;
+L=ProteinFateSigUn;
+M=ProteinSynthSigUn;
+N=SysDevSigUn;
+O=SysEnvSigUn;
+P=TranscriptionSigUn;
+Q=TransposableSigUn;

@@ -1,0 +1,39 @@
+digraph g {
+rankdir="LR" URL="." concentrate=false
+edge[fontsize="10" ]
+node[width="0" height="0" fontsize="12" fontcolor="black"]
+"Biclustering.Timing" [ label="Biclustering.Timing" ];
+"Biclustering.GeneExpressionMatrix" [ label="Biclustering.GeneExpressionMatrix" ];
+"Biclustering.Array" [ label="Biclustering.Array" ];
+"Biclustering.TableBicluster" [ label="Biclustering.TableBicluster" ];
+"Biclustering.Bicluster" [ label="Biclustering.Bicluster" ];
+"Biclustering.GroupBicluster" [ label="Biclustering.GroupBicluster" ];
+"Biclustering.SingleLevelIndexGroupBicluster" [ label="Biclustering.SingleLevelIndexGroupBicluster" ];
+"Biclustering.Bit" [ label="Biclustering.Bit" ];
+"Biclustering.Bicluster" [ label="Biclustering.Bicluster" ];
+"Biclustering.Parallel" [ label="Biclustering.Parallel" ];
+"Biclustering.Combinatorics" [ label="Biclustering.Combinatorics" ];
+"Biclustering.Sizing" [ label="Biclustering.Sizing" ];
+"Biclustering.BitSet" [ label="Biclustering.BitSet" ];
+"Biclustering.GeneExpressionMatrix" -> "Biclustering.Timing" [ ] ;
+"Biclustering.TableBicluster" -> "Biclustering.Array" [ ] ;
+"Biclustering.GeneExpressionMatrix" -> "Biclustering.Array" [ ] ;
+"Biclustering.Bicluster" -> "Biclustering.Array" [ ] ;
+"Biclustering.GroupBicluster" -> "Biclustering.Array" [ ] ;
+"Biclustering.SingleLevelIndexGroupBicluster" -> "Biclustering.Array" [ ] ;
+"Biclustering.TableBicluster" -> "Biclustering.Bit" [ ] ;
+"Biclustering.GeneExpressionMatrix" -> "Biclustering.Bit" [ ] ;
+"Biclustering.Bicluster" -> "Biclustering.Bit" [ ] ;
+"Biclustering.GroupBicluster" -> "Biclustering.Bit" [ ] ;
+"Biclustering.SingleLevelIndexGroupBicluster" -> "Biclustering.Bit" [ ] ;
+"Biclustering.Parallel" -> "Biclustering.Bicluster" [ ] ;
+"Biclustering.GeneExpressionMatrix" -> "Biclustering.Bicluster" [ ] ;
+"Biclustering.GeneExpressionMatrix" -> "Biclustering.Combinatorics" [ ] ;
+"Biclustering.TableBicluster" -> "Biclustering.Sizing" [ ] ;
+"Biclustering.GeneExpressionMatrix" -> "Biclustering.Sizing" [ ] ;
+"Biclustering.Bicluster" -> "Biclustering.Sizing" [ ] ;
+"Biclustering.GroupBicluster" -> "Biclustering.Sizing" [ ] ;
+"Biclustering.SingleLevelIndexGroupBicluster" -> "Biclustering.Sizing" [ ] ;
+"Biclustering.Bit" -> "Biclustering.BitSet" [ ] ;
+"Biclustering.GeneExpressionMatrix" -> "Biclustering.BitSet" [ ] ;
+}
